@@ -1,7 +1,9 @@
 import React from 'react'
 import { StyleSheet, withUnistyles } from 'react-native-unistyles'
-import { Pressable, ScrollView, Text, TextInput, View } from 'react-native'
+import { Pressable, ScrollView, TextInput, View } from 'react-native'
 import { Bell, Search } from 'lucide-react-native'
+import { Typography } from '@/components/Typography'
+import { CategoryBadge } from './CategoryBadge'
 
 type HeaderProps = {
     categories: Array<{ id: string, name: string }>,
@@ -30,12 +32,16 @@ export const Header: React.FunctionComponent<HeaderProps> = ({
         <View style={styles.header}>
             <View style={styles.locationContainer}>
                 <View>
-                    <Text style={styles.currentLocation}>
+                    <Typography color="tertiary">
                         Current Location
-                    </Text>
-                    <Text style={styles.locationText}>
-                        Poland, Rzeszow
-                    </Text>
+                    </Typography>
+                    <Typography
+                        color="tertiary"
+                        size="subtitle"
+                        isBold
+                    >
+                        Poland, Rzeszów
+                    </Typography>
                 </View>
                 <Pressable style={styles.iconContainer}>
                     <StyledBell size={24} />
@@ -56,32 +62,21 @@ export const Header: React.FunctionComponent<HeaderProps> = ({
                 showsHorizontalScrollIndicator={false}
             >
                 {categories.map((category) => (
-                    <Pressable
+                    <CategoryBadge
                         key={category.id}
-                        style={[
-                            styles.categoryButton,
-                            activeCategory === category.id && styles.categoryButtonActive,
-                        ]}
-                        onPress={() => setActiveCategory(category.id)}
-                    >
-                        <Text
-                            style={[
-                                styles.categoryText,
-                                activeCategory === category.id && styles.categoryTextActive,
-                            ]}>
-                            {category.name}
-                        </Text>
-                    </Pressable>
+                        category={category}
+                        activeCategory={activeCategory}
+                        setActiveCategory={setActiveCategory}
+                    />
                 ))}
             </ScrollView>
         </View>
     )
 }
 
-const styles = StyleSheet.create((theme, rt) => ({
+const styles = StyleSheet.create(theme => ({
     header: {
-        paddingHorizontal: Math.max(rt.insets.right, theme.gap(2)),
-        paddingTop: Math.max(rt.insets.top, 30),
+        paddingHorizontal: theme.gap(2),
         backgroundColor: theme.colors.tertiary
     },
     locationContainer: {
@@ -90,10 +85,6 @@ const styles = StyleSheet.create((theme, rt) => ({
         justifyContent: 'space-between',
         marginBottom: theme.gap(2),
     },
-    currentLocation: {
-        fontSize: 16,
-        color: theme.colors.onTertiary
-    },
     iconContainer: {
         backgroundColor: theme.colors.secondary,
         padding: theme.gap(1),
@@ -101,11 +92,6 @@ const styles = StyleSheet.create((theme, rt) => ({
         width: 50,
         justifyContent: 'center',
         alignItems: 'center'
-    },
-    locationText: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: theme.colors.onTertiary,
     },
     searchBar: {
         flexDirection: 'row',
@@ -126,24 +112,6 @@ const styles = StyleSheet.create((theme, rt) => ({
     categories: {
         flexDirection: 'row',
         marginBottom: theme.gap(2),
-    },
-    categoryButton: {
-        paddingHorizontal: theme.gap(1),
-        paddingVertical: theme.gap(1),
-        borderRadius: theme.gap(1),
-        marginRight: theme.gap(1),
-        backgroundColor: theme.colors.secondary
-    },
-    categoryButtonActive: {
-        backgroundColor: theme.colors.secondary,
-        fontWeight: 'bold'
-    },
-    categoryText: {
-        fontSize: 14,
-        color: theme.colors.onSecondary,
-    },
-    categoryTextActive: {
-        color: theme.colors.onTertiary
     },
     absoluteContainer: {
         position: 'absolute',
