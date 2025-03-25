@@ -74,10 +74,11 @@ export const Header: React.FunctionComponent<HeaderProps> = ({
     )
 }
 
-const styles = StyleSheet.create(theme => ({
+const styles = StyleSheet.create((theme, rt) => ({
     header: {
-        paddingHorizontal: theme.gap(2),
-        backgroundColor: theme.colors.tertiary
+        backgroundColor: theme.colors.tertiary,
+        paddingTop: Math.max(rt.insets.top, theme.gap(2)),
+        paddingHorizontal: Math.max(rt.insets.left, rt.insets.right, theme.gap(2))
     },
     locationContainer: {
         flexDirection: 'row',

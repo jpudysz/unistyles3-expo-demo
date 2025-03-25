@@ -1,6 +1,6 @@
 import React from 'react'
 import { Image, Pressable, View } from 'react-native'
-import { StyleSheet } from 'react-native-unistyles'
+import { StyleSheet, withUnistyles } from 'react-native-unistyles'
 import { Star } from 'lucide-react-native'
 import { Typography } from '@/components/Typography'
 
@@ -13,6 +13,10 @@ type HotelCardProps = {
         image: string
     }
 }
+
+const StyledStar = withUnistyles(Star, theme => ({
+    color: theme.colors.onBackground
+}))
 
 export const HotelCard: React.FunctionComponent<HotelCardProps> = ({
     hotel
@@ -37,7 +41,7 @@ export const HotelCard: React.FunctionComponent<HotelCardProps> = ({
                     {hotel.location}
                 </Typography>
                 <View style={styles.hotelRating}>
-                    <Star size={16} />
+                    <StyledStar size={16} />
                     <Typography>
                         {hotel.rating}
                     </Typography>
@@ -54,11 +58,24 @@ const styles = StyleSheet.create(theme => ({
         marginBottom: theme.gap(2),
         overflow: 'hidden',
         borderWidth: 1,
-        borderColor: theme.colors.onSecondary
+        borderColor: theme.colors.onSecondary,
+        _web: {
+            _hover: {
+                transition: 'transform 0.2s ease-in-out',
+                transform: 'scale(1.05)'
+            },
+            // _before: {
+            //     content: '"Unistyles!"',
+            //     color: theme.colors.onTertiary,
+            // }
+        }
     },
     hotelImage: {
         width: '100%',
-        height: 200
+        height: {
+            xs: 200,
+            md: 300
+        }
     },
     hotelInfo: {
         padding: theme.gap(2),

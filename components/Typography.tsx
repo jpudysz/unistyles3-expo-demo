@@ -50,6 +50,16 @@ const styles = StyleSheet.create(theme => ({
                     color: theme.colors.onBackground
                 },
             }
-        }
+        },
+        compoundVariants: [
+            {
+                isBold: true,
+                color: 'tertiary',
+                styles: {
+                    borderBottomWidth: 1,
+                    borderBottomColor: theme.colors.surfaceDim
+                }
+            }
+        ]
     }
 }))

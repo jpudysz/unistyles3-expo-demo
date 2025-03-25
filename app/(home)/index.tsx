@@ -63,10 +63,17 @@ export default function HotelsScreen() {
     )
 }
 
-const styles = StyleSheet.create(theme => ({
+const styles = StyleSheet.create((theme, rt) => ({
     container: {
         flex: 1,
-        backgroundColor: theme.colors.background
+        backgroundColor: theme.colors.background,
+        // move keyboard to the bottom of the screen
+        // to push the content based on IME insets
+        transform: [
+            {
+                translateY: rt.insets.ime * -1
+            }
+        ]
     },
     heading: {
         flexDirection: 'row',
@@ -75,6 +82,7 @@ const styles = StyleSheet.create(theme => ({
     },
     hotelsContainer: {
         padding: theme.gap(2),
-        gap: theme.gap(2)
+        gap: theme.gap(2),
+        paddingHorizontal: Math.max(rt.insets.left, rt.insets.right, theme.gap(2))
     }
 }))
