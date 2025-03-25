@@ -1,6 +1,6 @@
 import React from 'react'
 import { Image, Pressable, View } from 'react-native'
-import { StyleSheet, withUnistyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 import { Star } from 'lucide-react-native'
 import { Typography } from '@/components/Typography'
 
@@ -13,10 +13,6 @@ type HotelCardProps = {
         image: string
     }
 }
-
-const StyledStar = withUnistyles(Star, theme => ({
-    color: theme.colors.onSurface
-}))
 
 export const HotelCard: React.FunctionComponent<HotelCardProps> = ({
     hotel
@@ -41,7 +37,7 @@ export const HotelCard: React.FunctionComponent<HotelCardProps> = ({
                     {hotel.location}
                 </Typography>
                 <View style={styles.hotelRating}>
-                    <StyledStar size={16} />
+                    <Star size={16} />
                     <Typography>
                         {hotel.rating}
                     </Typography>
